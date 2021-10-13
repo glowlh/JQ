@@ -3,10 +3,10 @@ import { Copy } from 'vienna.icons';
 import { Box } from './BadgeWithCopy.styles'
 import {Button} from "vienna-ui";
 
-export const BadgeWithCopy = ({ children }) => {
+export const BadgeWithCopy = ({ children, copy }) => {
     const handleCopy = () => {
         const textField = document.createElement('textarea');
-        textField.innerText = children;
+        textField.innerText = copy;
         document.body.appendChild(textField);
         textField.select();
         document.execCommand('copy');
@@ -14,10 +14,9 @@ export const BadgeWithCopy = ({ children }) => {
     }
 
     return (
-        <Box>{children}
-            <Button style={{ height: 'auto' }} square design='ghost'>
-                <Copy size='s' style={{marginLeft: '8px'}} onClick={handleCopy} />
-            </Button>
+        <Box>
+            {children}
+            <Copy size='s' style={{marginLeft: '8px'}} onClick={handleCopy} />
         </Box>
     )
 }

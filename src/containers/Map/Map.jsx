@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useEffect} from 'react';
 import {Forward, Copy} from 'vienna.icons';
 import {Whitespace, Badge, Link, Button} from 'vienna-ui';
 import {CHARACTERS_LIST} from "../Character/Character";
@@ -17,7 +17,7 @@ export const Map = () => {
         return Object.keys(CHARACTERS_LIST).map((id) => {
             const {name} = CHARACTERS_LIST[id];
             return (
-                <Whitespace mb='16px' style={{display: 'flex', alignItems: 'center'}}>
+                <Whitespace key={id} mb='16px' style={{display: 'flex', alignItems: 'center'}}>
                     <Link href={`/character/${id}`} target='_blank'>
                         <Badge>{name} <Forward/></Badge>
                     </Link>{' '}
@@ -29,5 +29,9 @@ export const Map = () => {
         })
     }, []);
 
-    return characters;
+    return (
+        <>
+            {characters}
+        </>
+    );
 }

@@ -5,6 +5,10 @@ import {Img, Row} from '../../assets/block.styles';
 import {TitleWrapper, Title, Chapter} from '../../assets/text.styles';
 import {CHARACTERS_LIST} from "../Character/Character";
 
+import { ref, set } from "firebase/database";
+import {db} from '../../firebase-config';
+import { v4 as uuidv4 } from 'uuid';
+
 export const Home = () => {
     const [list, setList] = useState([]);
 
@@ -21,8 +25,8 @@ export const Home = () => {
     }, []);
 
     const characters = useMemo(() => {
-        return list.map((info) => (
-            <Whitespace mb='32px'>
+        return list.map((info, index) => (
+            <Whitespace mb='32px' key={index}>
                 <div>
                     <TitleWrapper>
                         <Title>

@@ -1,12 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Badge, Flex, Groups, H3, H5, Link, ThemeProvider, Whitespace} from 'vienna-ui';
-import {Forward, WarningTrFilled} from 'vienna.icons';
+import {Badge, Flex, Groups, H3, H5, ThemeProvider, Whitespace} from 'vienna-ui';
+import {WarningTrFilled} from 'vienna.icons';
 import {Checkbox} from '../../components/Checkbox';
-import {BadgeWithCopy} from '../../components/BdgeWithCopy';
 import {Card} from '../../components/';
 import {Photo} from './Character.styles';
 import {CHARACTER_NAME, CHARACTER_TASKS, CHARACTER_TOKEN} from '../constants/characters';
+import { Baggage } from './Baggage';
 
 const checkboxTheme = {
     checkbox: {
@@ -69,7 +69,7 @@ export const CHARACTERS_LIST = {
     },
     '7c9c1144-d03e-4c65-a04f-457bd3557fef': {
         file: 'Bankman.json',
-        name: 'Артем',
+        name: 'TEST',
     }
 };
 
@@ -90,42 +90,6 @@ export const Character = () => {
                 .catch(err => console.dir(err));
         }
     }, []);
-
-    const baggage = useMemo(() => {
-        if (!characterInfo.baggage) {
-            return null;
-        }
-        console.dir(characterInfo.baggage);
-
-        return (<Whitespace mb='24px'>
-            <H5 margin='xs'>Первоначальный инвентарь: </H5>
-            <Whitespace>
-                <Flex gap='s2' wrap='wrap'>
-                    {characterInfo.baggage.map((item) => {
-                        if (item.type === 'text') {
-                            return (
-                                <Flex.Item wrapLine><Badge color='seattle10'>{item.value}</Badge></Flex.Item>
-                            );
-                        } else if (item.type === 'link') {
-                            return (
-                                <Flex.Item wrapLine>
-                                    <Link href={item.value} target='_blank'>
-                                        <Badge color='seattle10'>{item.title} <Forward size='m'/></Badge>
-                                    </Link>
-                                </Flex.Item>
-                            )
-                        } else if (item.type === 'copy') {
-                            return (
-                                <Flex.Item wrapLine>
-                                    <BadgeWithCopy>{item.value}</BadgeWithCopy>
-                                </Flex.Item>
-                            );
-                        }
-                    })}
-                </Flex>
-            </Whitespace>
-        </Whitespace>);
-    }, [characterInfo]);
 
     const handleClickTask = useCallback((id) => (checked) => {
         if (!id) {
@@ -174,7 +138,7 @@ export const Character = () => {
                         {characterInfo.legend}
                     </ Whitespace>
 
-                    {baggage}
+                    <Baggage />
 
                     <Whitespace mb='24px'>
                         <Flex alignItems='center' gap='s1'>
@@ -191,7 +155,7 @@ export const Character = () => {
                             {
                                 characterInfo.tasks &&
                                 characterInfo.tasks.map((it, index) => (
-                                    <ThemeProvider theme={checkboxTheme}>
+                                    <ThemeProvider theme={checkboxTheme} key={index}>
                                         <Checkbox
                                             id={`${params.id}-${index}`}
                                             checked={
