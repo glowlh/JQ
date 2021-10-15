@@ -23,7 +23,7 @@ export const App = () => {
     if (characterName) {
       setCharacterName(characterName[0]);
     }
-  });
+  }, []);
 
   return (
     <Box>

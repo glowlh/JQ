@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle, keyframes, css } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Box = styled.div`
   width: 400px;

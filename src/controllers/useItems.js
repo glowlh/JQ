@@ -19,7 +19,7 @@ export const useItems = (userId) => {
             });
             setData(result);
         })
-    }, []);
+    }, [userId]);
 
     return [data];
 }

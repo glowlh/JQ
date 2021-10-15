@@ -15,7 +15,8 @@ export const Card = ({ imageSrc }) => {
         setIsMobile(hasDeviceMotionEvent);
 
         if (hasDeviceMotionEvent) {
-            setIsOpen(hasDeviceMotionEvent);
+            // setIsOpen(hasDeviceMotionEvent);
+            setIsOpen(false);
         }
     }, []);
 
@@ -95,7 +96,7 @@ export const Card = ({ imageSrc }) => {
                     </Modal.Head>
                     <Modal.Body>
                         Вам достался персонаж с интересной ролью.
-                        Все как и в жизни не все то, чем кажется с первого взгляда.
+                        Все как и в жизни не то, чем кажется с первого взгляда.
                         Внешность обманчива. Готовы начать?
                     </Modal.Body>
                     <Modal.Footer>

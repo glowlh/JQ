@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect} from 'react';
+import React, {useMemo} from 'react';
 import {Forward, Copy} from 'vienna.icons';
 import {Whitespace, Badge, Link, Button} from 'vienna-ui';
 import {CHARACTERS_LIST} from "../Character/Character";

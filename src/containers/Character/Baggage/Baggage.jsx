@@ -1,10 +1,11 @@
-import React, {useCallback, useState, useMemo} from "react";
+import React, {useCallback, useState, useMemo, useEffect} from "react";
 import {Badge, Button, Flex, H5, Link, Modal, Whitespace} from "vienna-ui";
 import {DocSend} from "vienna.icons";
 import NativeSelect from '@mui/material/NativeSelect';
 import {BadgeWithCopy} from "../../../components/BdgeWithCopy";
 import {useParams} from "react-router-dom";
 import {useItems, useUsersOnce, updateItem} from "../../../controllers";
+import {ModalContent} from "./Baggage.styles";
 
 export const Baggage = () => {
     const params = useParams();
@@ -18,6 +19,13 @@ export const Baggage = () => {
         setIsOpen(true);
         setActiveItem(item);
     }, [])
+
+    useEffect(() => {
+        if (isOpen && users[0]) {
+            console.log(users[0].id);
+            setNextOwnerId(users[0].id);
+        }
+    }, [isOpen, users]);
 
     const handleClose = useCallback(() => {
         setIsOpen(false);
@@ -90,9 +98,11 @@ export const Baggage = () => {
                         <Modal.Title>Передать предмет 🇯🇵</Modal.Title>
                     </Modal.Head>
                     <Modal.Body>
-                        Кому вы хотите передать <b>{activeItem && activeItem.name}</b>?
+                        <ModalContent>
+                            Кому вы хотите передать <b>{activeItem && activeItem.name}</b>?
+                        </ModalContent>
                         <Whitespace mt='20px'>
-                            <NativeSelect onChange={handleChangeOwner}>
+                            <NativeSelect defaultValue={users[0] && users[0].id} onChange={handleChangeOwner}>
                                 {
                                     users && users.map((user) => (
                                         <option value={user.id}>{user.role} {user.name}</option>

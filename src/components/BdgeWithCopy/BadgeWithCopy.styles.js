@@ -12,4 +12,8 @@ export const Box = styled.div`
   display: inline-flex;
   color: #2B2D33;
   align-items: center;
+  
+  > svg {
+    flex: none;
+  }
 `;
