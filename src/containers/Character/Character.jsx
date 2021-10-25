@@ -1,6 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Badge, Flex, Groups, H3, H5, ThemeProvider, Whitespace} from 'vienna-ui';
+import {Badge, Flex, Groups, H3, H5, ThemeProvider, Whitespace, Span} from 'vienna-ui';
 import {WarningTrFilled} from 'vienna.icons';
 import {Checkbox} from '../../components/Checkbox';
 import {Card} from '../../components/';
@@ -133,18 +133,18 @@ export const Character = () => {
                         <H5>Место рождения: {characterInfo.birthPlace}</H5>
                     </ Whitespace>
 
+                    <Baggage />
+
                     <Whitespace mb='24px'>
                         <H5 margin='xs'>Легенда: </H5>
                         {characterInfo.legend}
                     </ Whitespace>
 
-                    <Baggage />
-
                     <Whitespace mb='24px'>
                         <Flex alignItems='center' gap='s1'>
                             <Flex.Item style={{marginBottom: '4px'}}><WarningTrFilled color='#FFAD6C'
                                                                                       size='m'/></Flex.Item>
-                            <Flex.Item><H5 margin='xs'>Второй план героя:</H5></Flex.Item>
+                            <Flex.Item><H5 margin='xs'>Второй план героя{characterInfo.realRole && ` / ${characterInfo.realRole}`}:</H5></Flex.Item>
                         </Flex>
                         {characterInfo.real}
                     </Whitespace>
