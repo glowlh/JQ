@@ -1,20 +1,22 @@
-import React, {useMemo, useEffect, useState} from 'react';
-import { Whitespace, H2 } from 'vienna-ui';
+import React, {useMemo, useEffect, useState, useCallback} from 'react';
+import {Whitespace, H2, P} from 'vienna-ui';
 import {StoryBox, StoryBoxContent, StoryBoxImage} from "./Home.styles";
 import {Img, Row} from '../../assets/block.styles';
 import {TitleWrapper, Title, Chapter} from '../../assets/text.styles';
 import {CHARACTERS_LIST} from "../Character/Character";
+import {useUsers} from "../../controllers";
 
 export const Home = () => {
     const [list, setList] = useState([]);
+    const [users] = useUsers();
 
     useEffect(() => {
         const promises = [];
         const TEST_ID = '7c9c1144-d03e-4c65-a04f-457bd3557fef';
         Object.keys(CHARACTERS_LIST).forEach((id) => {
             if (id !== TEST_ID) {
-                const fineName = CHARACTERS_LIST[id].file;
-                promises.push(import(`../Character/data/${fineName}`));
+                const fileName = CHARACTERS_LIST[id].file;
+                promises.push(import(`../Character/data/${fileName}`));
             }
         })
 
@@ -22,6 +24,15 @@ export const Home = () => {
             setList(values);
         })
     }, []);
+
+    const getScore = useCallback((id) => {
+        if (users && users.length) {
+            const user = users.find((item) => item.id === id);
+            return user && user.scoring;
+        }
+
+        return null;
+    }, [users]);
 
     const characters = useMemo(() => {
         return list.map((info, index) => (
@@ -33,10 +44,15 @@ export const Home = () => {
                         </Title>
                     </TitleWrapper>
                 </div>
+
+                <Whitespace mb='16px'>
+                    <P weight='bold' size='xl'>Счет: {getScore(info.id)}</P>
+                </ Whitespace>
+
                 {info.legend}
             </Whitespace>
         ));
-    }, [list]);
+    }, [list, getScore]);
 
     return (
         <div>

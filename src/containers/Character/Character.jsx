@@ -7,6 +7,7 @@ import {Card} from '../../components/';
 import {Photo} from './Character.styles';
 import {CHARACTER_NAME, CHARACTER_TASKS, CHARACTER_TOKEN} from '../constants/characters';
 import { Baggage } from './Baggage';
+import {useUser} from "../../controllers";
 
 const checkboxTheme = {
     checkbox: {
@@ -76,6 +77,7 @@ export const CHARACTERS_LIST = {
 export const Character = () => {
     const params = useParams();
     const [characterInfo, setCharacterInfo] = useState({});
+    const [user] = useUser(params.id);
 
     useEffect(() => {
         const {id} = params;
@@ -120,6 +122,13 @@ export const Character = () => {
                             {characterInfo.role} {characterInfo.name}
                         </H3>
                     </Whitespace>
+
+                    {
+                        user &&
+                        <Whitespace mb='16px'>
+                            <H5>Счет: {user.scoring}</H5>
+                        </ Whitespace>
+                    }
 
                     <Whitespace mb='16px'>
                         <H5>Возраст: {characterInfo.age}</H5>

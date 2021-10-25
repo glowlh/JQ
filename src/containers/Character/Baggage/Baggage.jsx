@@ -22,7 +22,6 @@ export const Baggage = () => {
 
     useEffect(() => {
         if (isOpen && users[0]) {
-            console.log(users[0].id);
             setNextOwnerId(users[0].id);
         }
     }, [isOpen, users]);
@@ -39,10 +38,11 @@ export const Baggage = () => {
             content = (
                 <Flex gap='s2' wrap='wrap'>
                     {items.map((item) => {
-                        const trade = <DocSend size='s' onClick={handleOpen(item)} />;
+                        const trade = <DocSend size='s' onClick={handleOpen(item)}/>;
                         if (item.type === 'text') {
                             return (
-                                <Flex.Item key={item.id} id={item.id} wrapLine><Badge color='seattle10'>{item.name} {trade}</Badge></Flex.Item>
+                                <Flex.Item key={item.id} id={item.id} wrapLine><Badge
+                                    color='seattle10'>{item.name} {trade}</Badge></Flex.Item>
                             );
                         } else if (item.type === 'link') {
                             return (
@@ -81,7 +81,7 @@ export const Baggage = () => {
     }, [items]);
 
     const handleClickTrade = useCallback((userId) => {
-        updateItem(activeItem.id, { userId: nextOwnerId });
+        updateItem(activeItem.id, {userId: nextOwnerId});
         setIsOpen(false);
     }, [activeItem, nextOwnerId]);
 
